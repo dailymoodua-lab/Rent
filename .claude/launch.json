@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Next.js Dev Server",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["/Users/sergeybelskiy/Desktop/AI CENTR/Rent/node_modules/.bin/next", "dev", "-p", "6543"],
+      "port": 6543
+    }
+  ]
+}

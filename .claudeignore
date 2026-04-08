@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+prisma/migrations/
+public/images/
+*.lock
+*.log
+.env
+.env.local
+.env.*.local
