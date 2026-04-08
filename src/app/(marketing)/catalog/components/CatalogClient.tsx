@@ -1,18 +1,17 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import CarCard from "@/components/CarCard";
 import Filters, { DEFAULT_FILTERS, FilterState } from "./Filters";
 import { CARS } from "@/data/cars";
 
 type SortOption = "popular" | "price-asc" | "price-desc";
 
-interface CatalogClientProps {
-  dateFrom?: string;
-  dateTo?: string;
-}
-
-export default function CatalogClient({ dateFrom, dateTo }: CatalogClientProps) {
+export default function CatalogClient() {
+  const searchParams = useSearchParams();
+  const dateFrom = searchParams.get("from") ?? "";
+  const dateTo = searchParams.get("to") ?? "";
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sort, setSort] = useState<SortOption>("popular");
   const [filtersOpen, setFiltersOpen] = useState(false);

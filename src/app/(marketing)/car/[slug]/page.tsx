@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { CARS } from "@/data/cars";
@@ -7,7 +8,6 @@ import BookingForm from "./components/BookingForm";
 
 interface Props {
   params: { slug: string };
-  searchParams: { from?: string; to?: string };
 }
 
 /* Статическая генерация всех страниц авто */
@@ -72,7 +72,7 @@ const SPECS_ICONS = {
   ),
 };
 
-export default function CarPage({ params, searchParams }: Props) {
+export default function CarPage({ params }: Props) {
   const car = CARS.find((c) => c.slug === params.slug);
   if (!car) notFound();
 
@@ -189,11 +189,15 @@ export default function CarPage({ params, searchParams }: Props) {
             </div>
 
             {/* Форма бронирования */}
-            <BookingForm
-              pricePerDay={car.pricePerDay}
-              initialDateFrom={searchParams.from}
-              initialDateTo={searchParams.to}
-            />
+            <Suspense
+              fallback={
+                <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm text-sm text-slate-400">
+                  Загрузка формы бронирования...
+                </div>
+              }
+            >
+              <BookingForm pricePerDay={car.pricePerDay} />
+            </Suspense>
 
           </div>
         </div>

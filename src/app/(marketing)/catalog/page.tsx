@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import CatalogClient from "./components/CatalogClient";
 
 export const metadata: Metadata = {
@@ -11,15 +12,10 @@ export const metadata: Metadata = {
   },
 };
 
-interface PageProps {
-  searchParams: { from?: string; to?: string };
-}
-
-export default function CatalogPage({ searchParams }: PageProps) {
+export default function CatalogPage() {
   return (
-    <CatalogClient
-      dateFrom={searchParams.from}
-      dateTo={searchParams.to}
-    />
+    <Suspense fallback={<div className="min-h-screen bg-[#F8F7F4]" />}>
+      <CatalogClient />
+    </Suspense>
   );
 }

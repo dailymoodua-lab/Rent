@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface BookingFormProps {
   pricePerDay: number;
-  initialDateFrom?: string;
-  initialDateTo?: string;
 }
 
 function daysBetween(from: string, to: string): number {
@@ -21,15 +20,17 @@ function formatDate(iso: string): string {
   return `${d}.${m}.${y}`;
 }
 
-export default function BookingForm({
-  pricePerDay,
-  initialDateFrom = "",
-  initialDateTo = "",
-}: BookingFormProps) {
+export default function BookingForm({ pricePerDay }: BookingFormProps) {
+  const searchParams = useSearchParams();
   const today = new Date().toISOString().split("T")[0];
-  const [dateFrom, setDateFrom] = useState(initialDateFrom);
-  const [dateTo, setDateTo] = useState(initialDateTo);
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [location, setLocation] = useState("");
+
+  useEffect(() => {
+    setDateFrom(searchParams.get("from") ?? "");
+    setDateTo(searchParams.get("to") ?? "");
+  }, [searchParams]);
 
   const days = dateFrom && dateTo ? daysBetween(dateFrom, dateTo) : 0;
   const total = days * pricePerDay;
