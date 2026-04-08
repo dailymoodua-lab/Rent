@@ -18,6 +18,9 @@ import { CARS as ALL_CARS } from "@/data/cars";
 
 /* ─── 6 популярных авто для главной ─── */
 const CARS = ALL_CARS.slice(0, 6);
+const HERO_IMAGE_SRC = process.env.GITHUB_PAGES === "true"
+  ? "/Rent/images/hero-bg.jpg"
+  : "/images/hero-bg.jpg";
 
 /* ─── Преимущества ─── */
 const BENEFITS = [
@@ -79,7 +82,7 @@ export default function HomePage() {
 
         {/* Фоновое фото */}
         <Image
-          src="/images/hero-bg.jpg"
+          src={HERO_IMAGE_SRC}
           alt="Прокат авто в Варшаве"
           fill
           priority
